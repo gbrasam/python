@@ -48,18 +48,21 @@ def main():
     argv = sys.argv
     argc = len(argv) - 1
 
-    if argc == 0:
-        print("What is the text to count?")
-        try:
-            text = input()
-            text += "\n"
-            counter(text)
-        except EOFError:
-            pass
-    elif argc > 1:
-        print("AssertionError: more than one argument is provided")
-    else:
-        counter(argv[1])
+    try:
+        assert argc <= 1, "more than one argument is provided"
+
+        if argc == 0:
+            print("What is the text to count?")
+            try:
+                text = input()
+                text += "\n"
+                counter(text)
+            except (EOFError, KeyboardInterrupt):
+                pass
+        elif argc == 1:
+            counter(argv[1])
+    except AssertionError as error:
+        print(f"AssertionError: {error}")
 
 
 if __name__ == "__main__":
