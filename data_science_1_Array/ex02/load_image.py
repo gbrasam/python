@@ -4,8 +4,10 @@ import numpy as np
 
 def ft_load(path: str) -> np.ndarray:
     """
-    load an image, convert it to RGB,
-    print its shape and return its pixels as a NumPy array
+    load an image,
+    convert it to RGB,
+    print its shape,
+    and return its pixels as a NumPy array
     """
 
     try:
