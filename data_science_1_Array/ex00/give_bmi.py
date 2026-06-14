@@ -1,48 +1,64 @@
 import numpy as np
 
 
-def validate_numeric_list(values):
+def validate_numeric_list(values) -> bool:
+    """Check if all values in a list are int or float."""
+
+    for value in values:
+        if isinstance(value, bool):
+            return False
+        if not isinstance(value, (int, float)):
+            return False
+    return True
 
 
+def validate_arguments(height: list[int | float],
+                       weight: list[int | float]) -> None:
+    """Validate arguments for BMI calculation."""
 
-def argument_checkpoint(height: list[int | float],
-                        weight: list[int | float]):
-    if type(height) is not list or type(weight) is not list:
-        print("both arguments must be lists")
+    if not isinstance(height, list) or not isinstance(weight, list):
+        raise ValueError("both arguments must be lists")
 
     if len(height) != len(weight):
-        print("both lists must have the same length")
-    
-    try:
-        validate_numeric_list(height)
-        validate_numeric_list(weight)
-    
-    except ValueError:
-        print("AssertionError: argument is not an integer")
+        raise ValueError("both lists must have the same length")
+
+    if not validate_numeric_list(height):
+        raise ValueError("height contains non numeric values")
+
+    if not validate_numeric_list(weight):
+        raise ValueError("weight contains non numeric values")
 
 
 def give_bmi(height: list[int | float],
              weight: list[int | float]) -> list[int | float]:
     """
+    it take 2 lists of integers or floats in input
+    and returns a list of BMI values
     BMI (Body Mass Index) is a value calculated from:
     BMI = weight / height²
     """
 
-    argument_checkpoint(height, weight)
+    try:
+        validate_arguments(height, weight)
 
+        height_array = np.array(height)
+        weight_array = np.array(weight)
+
+        if np.any(height_array == 0):
+            raise ValueError("height cannot be equal to 0")
+        bmi = weight_array / (height_array ** 2)
+
+        return bmi.tolist()
+
+    except ValueError as error:
+        print(f"AssertionError: {error}")
+        return []
 
 
 def apply_limit(bmi: list[int | float], limit: int) -> list[bool]:
-    """XXXXXXXX"""
+    """
+    Return a list of booleans indicating whether each BMI
+    value is greater than the specified limit.
+    """
 
-
-
-def main():
-    """XXXXXXXX"""
-
-
-
-
-
-if __name__ == "__main__":
-    main()
+    return [value >= limit for value in bmi]
