@@ -1,0 +1,30 @@
+from PIL import Image, UnidentifiedImageError
+import numpy as np
+
+
+def ft_load(path: str) -> np.ndarray:
+    """
+    load an image, convert it to RGB,
+    print its shape and return its pixels as a NumPy array
+    """
+
+    try:
+        if not path:
+            raise ValueError("empty path")
+
+        image = Image.open(path)
+        image = image.convert("RGB")
+        pixels = np.array(image)
+        print(f"The shape of image is: {pixels.shape}")
+        return pixels
+
+    except FileNotFoundError:
+        print("Error: file not found")
+
+    except UnidentifiedImageError:
+        print("Error: corrupted or invalid image")
+
+    except ValueError as error:
+        print(f"AssertionError: {error}")
+
+    return np.array([])
