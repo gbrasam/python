@@ -1,3 +1,5 @@
+import numpy as np
+
 
 def validate_numeric_list(values: list[int | float]) -> bool:
     """check if all values in a list are integers or floats"""
@@ -49,6 +51,15 @@ def validate_row_lengths(family: list) -> bool:
     return True
 
 
+def validate_integer(value: int) -> bool:
+    """check if value is an integer"""
+
+    if type(value) is not int:
+        return False
+
+    return True
+
+
 def validate_arguments(family: list, start: int, end: int) -> None:
     """validate family, start and end arguments"""
 
@@ -58,18 +69,32 @@ def validate_arguments(family: list, start: int, end: int) -> None:
     if not validate_row_lengths(family):
         raise ValueError("all rows must have the same size")
 
-    # later: validate start and end
+    if not validate_integer(start):
+        raise ValueError("start must be an integer")
+
+    if not validate_integer(end):
+        raise ValueError("end must be an integer")
 
 
 def slice_me(family: list, start: int, end: int) -> list:
     """
-    print the shape of a 2D list and return a slice
-    between the specified start and end indices
+    validate_arguments(...)
+    print original shape
+    create slice
+    print new shape
+    return sliced list
     """
 
     try:
         validate_arguments(family, start, end)
-        #WIP
+
+        family_array = np.array(family)
+        print(f"My shape is : {family_array.shape}")
+
+        new_family = family_array[start:end]
+        print(f"My new shape is : {new_family.shape}")
+        return new_family.tolist()
+
     except ValueError as error:
         print(f"AssertionError: {error}")
         return []
