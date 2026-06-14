@@ -1,20 +1,21 @@
 import numpy as np
 
 
-def validate_numeric_list(values) -> bool:
-    """Check if all values in a list are int or float."""
+def validate_numeric_list(values: list[int | float]) -> bool:
+    """check if all values in a list are int or float"""
 
     for value in values:
         if isinstance(value, bool):
             return False
         if not isinstance(value, (int, float)):
             return False
+
     return True
 
 
 def validate_arguments(height: list[int | float],
                        weight: list[int | float]) -> None:
-    """Validate arguments for BMI calculation."""
+    """validate arguments for BMI calculation"""
 
     if not isinstance(height, list) or not isinstance(weight, list):
         raise ValueError("both arguments must be lists")
