@@ -14,9 +14,10 @@ def ft_load(path: str) -> np.ndarray:
         if not path:
             raise ValueError("empty path")
 
-        image = Image.open(path)
-        image = image.convert("RGB")
-        pixels = np.array(image)
+        with Image.open(path) as image:
+            image = image.convert("RGB")
+            pixels = np.array(image)
+
         print(f"The shape of image is: {pixels.shape}")
         return pixels
 
