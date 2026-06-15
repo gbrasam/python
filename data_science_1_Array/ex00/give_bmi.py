@@ -33,7 +33,7 @@ def validate_arguments(height: list[int | float],
 def give_bmi(height: list[int | float],
              weight: list[int | float]) -> list[int | float]:
     """
-    it take 2 lists of integers or floats in input
+    it takes 2 lists of integers or floats in input
     and returns a list of BMI values
     BMI (Body Mass Index) is a value calculated from:
     BMI = weight / height²
@@ -62,4 +62,18 @@ def apply_limit(bmi: list[int | float], limit: int) -> list[bool]:
     value is greater than the specified limit.
     """
 
-    return [value >= limit for value in bmi]
+    try:
+        if not isinstance(bmi, list):
+            raise ValueError("bmi must be a list")
+
+        if not validate_numeric_list(bmi):
+            raise ValueError("bmi contains non numeric values")
+
+        if not isinstance(limit, int) or isinstance(limit, bool):
+            raise ValueError("limit must be an integer")
+
+        return [value > limit for value in bmi]
+
+    except ValueError as error:
+        print(f"AssertionError: {error}")
+        return []
