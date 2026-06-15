@@ -14,9 +14,10 @@ def ft_load(path: str) -> np.ndarray:
         if not path:
             raise ValueError("empty path")
 
-        image = Image.open(path)
-        image = image.convert("RGB")
-        pixels = np.array(image)
+        with Image.open(path) as image:
+            image = image.convert("RGB")
+            pixels = np.array(image)
+
         return pixels
 
     except FileNotFoundError:
