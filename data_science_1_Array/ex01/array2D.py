@@ -78,11 +78,8 @@ def validate_arguments(family: list, start: int, end: int) -> None:
 
 def slice_me(family: list, start: int, end: int) -> list:
     """
-    validate_arguments(...)
-    print original shape
-    create slice
-    print new shape
-    return sliced list
+    print the shape of a 2D list, slice it from start to end,
+    print the new shape and return the sliced list
     """
 
     try:
