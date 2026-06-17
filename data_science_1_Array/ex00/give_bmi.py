@@ -20,6 +20,9 @@ def validate_arguments(height: list[int | float],
     if not isinstance(height, list) or not isinstance(weight, list):
         raise ValueError("both arguments must be lists")
 
+    if not height or not weight:
+        raise ValueError("height and weight cannot be empty")
+
     if len(height) != len(weight):
         raise ValueError("both lists must have the same length")
 
