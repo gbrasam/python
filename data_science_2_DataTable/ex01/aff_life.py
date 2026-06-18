@@ -6,18 +6,18 @@ import matplotlib.pyplot as plt
 def make_graph(df: pd.DataFrame) -> None:
 
     year = df.columns[1:]
-    life_expectancy = df.values[0][1:]
+    life_expectancy = df.iloc[0, 1:]
 
-    plt.plot(year, life_expectancy)
+    plt.plot(year, life_expectancy, label="Spain")
     plt.title("Spain Life Expectancy Projections")
     plt.xlabel("Year")
     plt.ylabel("Life Expectancy")
     plt.xticks(year[::40])
+    plt.legend()
     plt.show()
 
 
 def main():
-
     """
     loads life expectancy dataset
     and displays the data for Spain
