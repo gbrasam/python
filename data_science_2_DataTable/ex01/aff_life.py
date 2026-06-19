@@ -8,12 +8,11 @@ def make_graph(df: pd.DataFrame) -> None:
     year = df.columns[1:]
     life_expectancy = df.iloc[0, 1:]
 
-    plt.plot(year, life_expectancy, label="Spain")
+    plt.plot(year, life_expectancy)
     plt.title("Spain Life Expectancy Projections")
     plt.xlabel("Year")
     plt.ylabel("Life Expectancy")
     plt.xticks(year[::40])
-    plt.legend()
     plt.show()
 
 
