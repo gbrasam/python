@@ -18,6 +18,7 @@ def make_graph(df: pd.DataFrame) -> None:
 
 
 def main():
+
     """
     loads life expectancy dataset
     and displays the data for Spain
