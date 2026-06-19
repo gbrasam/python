@@ -16,6 +16,7 @@ def load(path: str) -> pd.DataFrame | None:
             raise ValueError("invalid file format")
 
         df = pd.read_csv(path)
+        print(f"Loading dataset of dimensions {df.shape}")
 
         return df
 
