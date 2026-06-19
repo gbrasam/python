@@ -7,22 +7,24 @@ def make_graph(df: pd.DataFrame) -> None:
 
     year = df.columns[1:]
     print(year)
+    start = year.get_loc("1800")
+    print(start)
+    end = year.get_loc("2050")
+    print(end)
+    period = year[start:end + 1]
+    print(period)
 
     rows, cols = df.shape
     for i in range(rows):
-        row = df.iloc[i]
-        country = row["country"]
-        period = year[1800:2051]
-        population = row[1:]
-        print(population.head())
+        population = df.iloc[i, 1:end]
+        country = population["country"]
         plt.plot(period, population, label=country)
-
-    plt.legend()
 
     plt.title("Population Projections")
     plt.xlabel("Year")
     plt.ylabel("Population")
     plt.xticks(period[::40])
+    plt.legend()
     plt.show()
 
 
@@ -41,8 +43,8 @@ def main():
         subset = df[df["country"].isin(["Spain", "France"])]
         if subset.empty:
             raise ValueError("'Spain' or 'France' not found in the dataset")
-        
-        # print(subset.values[1])
+
+        # print(subset.values)
         make_graph(subset)
 
         return 1
